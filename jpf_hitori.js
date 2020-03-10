@@ -5,8 +5,8 @@
    Tutorial 11
    Review Assignment
 
-   Author: 
-   Date:   
+   Author: Marc Tinney
+   Date: 3/9/2020  
 
    Global Variables
    ================
@@ -47,9 +47,59 @@
 	
 */
 
+var allCells;
+//Run the startUp() function when the page loads
+window.onload = startUp;
 
+function startUp(){
+   //insert the title for the first puzzle
+   document.getElementById("puzzleTitle").innerHTML = "Puzzle 1";
 
+   //insert the HTML code for the first puzzle
+   document.getElementById("puzzle").innerHTML = drawHitori(hitori1Numbers, hitori1Blocks, hitoriRating1);
+   
+   //add event handlers for the puzzle buttons
+   var puzzleButtons = document.getElementsByClassName("puzzles");
+   for (var i = 0; i < puzzleButtons.length; i++){
+      puzzleButtons[i].onclick = switchPuzzle;
+   }
 
+   setupPuzzle();
+
+   //add event handlers for the check solutions button
+   document.getElementById("check").onclick = findErrors();
+   document.getElementById("show").onclick = showSolution();
+}
+
+function switchPuzzle(e){
+   if(confirm("You will die :D")){
+      var puzzleID = e.target.id;
+      document.getElementById("puzzleTitle").innerHTML = e.target.value;
+
+      switch(puzzleID){
+         case "puzzle1":
+            document.getElementById("puzzle").innerHTML = drawHitori(hitori1Numbers, hitori1Blocks, hitoriRating1);
+            break;
+         case "puzzle2":
+            document.getElementById("puzzle").innerHTML = drawHitori(hitori2Numbers, hitori2Blocks, hitoriRating2);
+            break;
+         case "puzzle3":
+            document.getElementById("puzzle").innerHTML = drawHitori(hitori3Numbers, hitori3Blocks, hitoriRating3);
+            break;
+      }
+      setupPuzzle();
+   }
+}
+
+function setupPuzzle(){
+   var allCells = document.querySelectorAll("table#hitoriGrid td");
+
+      for (var i = 0; i < allCells.length; i++){
+         allCells[i].style.backgroundColor = ("rgb(255, 255, 255)");
+         allCells[i].style.color = ("rgb(0, 0, 0)");
+         allCells[i].style.borderRadius = ("0");
+      }
+}
 
 
 
